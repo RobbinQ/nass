@@ -1,5 +1,6 @@
 package com.robin.nass.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.robin.nass.common.httpUtils.ApiResult;
 import com.robin.nass.common.httpUtils.ResponseStatus;
 import com.robin.nass.common.securityUtils.JwtUtil;
@@ -43,10 +44,15 @@ public class UserController {
 
     @PostMapping("add")
     public ApiResult addUser (@RequestBody SysUser sysUser){
-        boolean save = sysUserService.save(sysUser);
-        if (!save){
-            return new ApiResult(ResponseStatus.WRONG,"注册失败",null);
+        LambdaQueryWrapper<SysUser> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(SysUser::getUsername,sysUser.getUsername());
+        SysUser hasOne = sysUserService.getOne(wrapper);
+        if (hasOne == null){
+            boolean save = sysUserService.save(sysUser);
+            if (save){
+                return new ApiResult(ResponseStatus.SUCCESS,"注册成功！",null);
+            }
         }
-        return new ApiResult(ResponseStatus.SUCCESS,"注册成功！",null);
+        return new ApiResult(ResponseStatus.WRONG,"注册失败！",null);
     }
 }
