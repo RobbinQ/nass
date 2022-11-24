@@ -10,4 +10,5 @@ import com.robin.nass.pojo.dictionaries.DicPolitics;
  * @Date 2022/11/22 17:43
  */
 public interface DicPoliticsService extends IService<DicPolitics> {
+
 }

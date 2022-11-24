@@ -4,13 +4,12 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.robin.nass.common.httpUtils.ApiResult;
 import com.robin.nass.common.httpUtils.ResponseStatus;
 import com.robin.nass.pojo.SysDept;
+import com.robin.nass.pojo.SysDeptTree;
 import com.robin.nass.service.SysDeptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 /**
  * @ClassName DeptController
@@ -26,10 +25,11 @@ public class DeptController {
 
     @GetMapping("/getInfo")
     public ApiResult getDeptInfo(){
+        return new ApiResult(ResponseStatus.SUCCESS,"查询成功！",sysDeptService.list());
+    }
 
-        List<SysDept> list = sysDeptService.list();
-
-        return new ApiResult(ResponseStatus.SUCCESS,"查询成功！",list);
-
+    @GetMapping("/getDeptTree")
+    public ApiResult getDeptTree(){
+        return new ApiResult(ResponseStatus.SUCCESS,"查询成功！",sysDeptService.getDeptTree());
     }
 }

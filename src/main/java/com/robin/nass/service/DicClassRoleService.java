@@ -1,7 +1,7 @@
 package com.robin.nass.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.robin.nass.pojo.dictionaries.DicClassRole;
+import com.robin.nass.pojo.dictionaries.DicClassrole;
 
 /**
  * @ClassName DicClassRoleService
@@ -9,5 +9,6 @@ import com.robin.nass.pojo.dictionaries.DicClassRole;
  * @Author Robin
  * @Date 2022/11/22 17:37
  */
-public interface DicClassRoleService extends IService<DicClassRole> {
+public interface DicClassRoleService extends IService<DicClassrole> {
+
 }

@@ -30,7 +30,9 @@ public class UserController {
      */
     @PostMapping("/login")
     public ApiResult login(@RequestBody SysUser sysUser){
-        SysUser user = sysUserService.getById(sysUser.getId());
+        LambdaQueryWrapper<SysUser> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(SysUser::getUsername,sysUser.getUsername());
+        SysUser user = sysUserService.getOne(wrapper);
         if (user == null){
             return new ApiResult(ResponseStatus.WRONG,"请先注册！",null);
         }

@@ -6,6 +6,8 @@ import com.robin.nass.pojo.dictionaries.DicNationality;
 import com.robin.nass.service.DicNationalityService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @ClassName DicNationalityServiceImpl
  * @Description TODO
@@ -14,4 +16,5 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class DicNationalityServiceImpl extends ServiceImpl<DicNationalityMapper, DicNationality> implements DicNationalityService {
+
 }

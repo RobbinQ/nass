@@ -1,7 +1,7 @@
 package com.robin.nass.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.robin.nass.pojo.dictionaries.DicClassRole;
+import com.robin.nass.pojo.dictionaries.DicClassrole;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -11,5 +11,5 @@ import org.apache.ibatis.annotations.Mapper;
  * @Date 2022/11/22 17:37
  */
 @Mapper
-public interface DicClassRoleMapper extends BaseMapper<DicClassRole> {
+public interface DicClassRoleMapper extends BaseMapper<DicClassrole> {
 }

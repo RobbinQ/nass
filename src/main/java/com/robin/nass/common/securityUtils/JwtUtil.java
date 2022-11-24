@@ -60,6 +60,11 @@ public class JwtUtil {
         return false;
     }
 
+    /**
+     * 判断token是否过期
+     * @param tokenExpired
+     * @return
+     */
     public static Boolean tokenIsExpired(Date tokenExpired) {
         return !new Date().before(tokenExpired);
     }

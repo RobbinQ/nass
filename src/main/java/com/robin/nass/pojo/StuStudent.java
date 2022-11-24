@@ -9,7 +9,7 @@ import lombok.Data;
 public class StuStudent {
     private Long id;
 
-    private Long fuserid;
+//    private Long fuserid;
 
     private Long fcode;
 

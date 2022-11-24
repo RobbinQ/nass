@@ -2,6 +2,9 @@ package com.robin.nass.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.robin.nass.pojo.SysDept;
+import com.robin.nass.pojo.SysDeptTree;
+
+import java.util.List;
 
 /**
  * @ClassName SysDeptService
@@ -11,4 +14,6 @@ import com.robin.nass.pojo.SysDept;
  */
 
 public interface SysDeptService extends IService<SysDept> {
+    List<SysDeptTree> getDeptTree();
+    void findTreeChildren(SysDeptTree tree,List<SysDept> depts);
 }

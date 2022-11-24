@@ -10,4 +10,5 @@ import com.robin.nass.pojo.dictionaries.DicNationality;
  * @Date 2022/11/22 17:40
  */
 public interface DicNationalityService extends IService<DicNationality> {
+
 }

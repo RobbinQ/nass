@@ -6,6 +6,8 @@ import com.robin.nass.pojo.dictionaries.DicPolitics;
 import com.robin.nass.service.DicPoliticsService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @ClassName DicPoliticsServiceImpl
  * @Description TODO
@@ -14,4 +16,5 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class DicPoliticsServiceImpl extends ServiceImpl<DicPoliticsMapper, DicPolitics> implements DicPoliticsService {
+
 }
