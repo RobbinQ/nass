@@ -4,15 +4,15 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.robin.nass.common.httpUtils.ApiResult;
 import com.robin.nass.common.httpUtils.ResponseStatus;
-import com.robin.nass.pojo.DTO.StuDTO;
+import com.robin.nass.pojo.dto.StuDTO;
 import com.robin.nass.pojo.StuStudent;
 import com.robin.nass.pojo.dictionaries.DicClassrole;
 import com.robin.nass.pojo.dictionaries.DicNationality;
 import com.robin.nass.pojo.dictionaries.DicPolitics;
-import com.robin.nass.service.DicClassRoleService;
-import com.robin.nass.service.DicNationalityService;
-import com.robin.nass.service.DicPoliticsService;
 import com.robin.nass.service.StuStudentService;
+import com.robin.nass.service.dicService.DicClassRoleService;
+import com.robin.nass.service.dicService.DicNationalityService;
+import com.robin.nass.service.dicService.DicPoliticsService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +32,7 @@ import java.util.stream.Collectors;
  */
 @RestController
 @RequestMapping("/stu")
+@CrossOrigin
 public class StudentController {
 
     @Autowired
@@ -65,7 +66,7 @@ public class StudentController {
     注册所需的民族、政治面貌、班级角色信息
      */
     @GetMapping("/getInfoForStuRegister")
-    public ApiResult getInfoForStuRegister(){
+    public ApiResult  getInfoForStuRegister(){
         HashMap<String, List<Object>> infoForRegister = new HashMap<>();
 
         List<DicClassrole> classRoleList = dicClassRoleService.list();
@@ -84,12 +85,11 @@ public class StudentController {
      * @param studentFile
      * @return
      */
-    @RequestMapping("/importStudentByFile")
+    @PutMapping("/importStudentByFile")
     public ApiResult importStudentByFile(MultipartFile studentFile){
         Long stuCount = stuStudentService.importStu(studentFile);
         return new ApiResult(ResponseStatus.SUCCESS,"导入成功！",stuCount);
     }
-
     /**
      * 分页查询学生列表
      * @param page
@@ -98,7 +98,9 @@ public class StudentController {
      * @return
      */
     @GetMapping("/stuInfo")
-    public ApiResult getStuPageInfo(int page,int pagesize,String studentName){
+    public ApiResult getStuPageInfo(@RequestParam int page,
+                                    @RequestParam int pagesize,
+                                    @RequestParam String studentName){
         Page<StuStudent> studentInfo = new Page<>(page, pagesize);
         LambdaQueryWrapper<StuStudent> wrapper = new LambdaQueryWrapper<>();
         //当条件为真时添加
@@ -132,5 +134,18 @@ public class StudentController {
         stuDTOPage.setRecords(dtoList);
 
         return new ApiResult(ResponseStatus.SUCCESS,"查询成功！",stuDTOPage);
+    }
+
+    @PostMapping("/editStu")
+    public ApiResult editStudentById(@RequestBody StuStudent stuStudent){
+        stuStudentService.updateById(stuStudent);
+        return new ApiResult(ResponseStatus.SUCCESS,"修改成功！",null);
+    }
+
+    @DeleteMapping("/deleteStu")
+    public ApiResult deleteStu(@RequestParam Long stuId){
+        stuStudentService.removeById(stuId);
+
+        return new ApiResult(ResponseStatus.SUCCESS,"删除成功！",null);
     }
 }

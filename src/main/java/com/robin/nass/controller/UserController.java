@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @RestController
 @RequestMapping("/user")
+@CrossOrigin
 public class UserController {
     @Autowired
     SysUserService sysUserService;
@@ -56,5 +57,12 @@ public class UserController {
             }
         }
         return new ApiResult(ResponseStatus.WRONG,"注册失败！",null);
+    }
+
+    @PostMapping("/editUserInfo")
+    public ApiResult editUserInfo(@RequestBody SysUser sysUser){
+        boolean flag = sysUserService.updateById(sysUser);
+        if (flag) return new ApiResult(ResponseStatus.SUCCESS,"更新成功！",null);
+        return new ApiResult(ResponseStatus.WRONG,"更新失败！",null);
     }
 }

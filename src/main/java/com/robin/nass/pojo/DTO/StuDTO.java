@@ -1,4 +1,4 @@
-package com.robin.nass.pojo.DTO;
+package com.robin.nass.pojo.dto;
 
 import com.robin.nass.pojo.StuStudent;
 import lombok.Data;

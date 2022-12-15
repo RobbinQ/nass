@@ -1,12 +1,10 @@
-package com.robin.nass.service.serviceImpl;
+package com.robin.nass.service.serviceImpl.dicServiceImpl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.robin.nass.mapper.DicPoliticsMapper;
 import com.robin.nass.pojo.dictionaries.DicPolitics;
-import com.robin.nass.service.DicPoliticsService;
+import com.robin.nass.service.dicService.DicPoliticsService;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * @ClassName DicPoliticsServiceImpl

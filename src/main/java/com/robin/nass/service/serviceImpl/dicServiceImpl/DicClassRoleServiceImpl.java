@@ -1,9 +1,9 @@
-package com.robin.nass.service.serviceImpl;
+package com.robin.nass.service.serviceImpl.dicServiceImpl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.robin.nass.mapper.DicClassRoleMapper;
 import com.robin.nass.pojo.dictionaries.DicClassrole;
-import com.robin.nass.service.DicClassRoleService;
+import com.robin.nass.service.dicService.DicClassRoleService;
 import org.springframework.stereotype.Service;
 
 /**

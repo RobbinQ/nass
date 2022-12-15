@@ -1,4 +1,4 @@
-package com.robin.nass.service;
+package com.robin.nass.service.dicService;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.robin.nass.pojo.dictionaries.DicPolitics;
