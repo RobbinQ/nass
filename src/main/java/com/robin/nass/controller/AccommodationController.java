@@ -8,7 +8,6 @@ import com.robin.nass.pojo.StuAccommodation;
 import com.robin.nass.pojo.StuDormitory;
 import com.robin.nass.pojo.StuStudent;
 import com.robin.nass.pojo.dto.AccomDto;
-import com.robin.nass.pojo.dto.StuDTO;
 import com.robin.nass.service.StuAccommodationService;
 import com.robin.nass.service.StuDormitoryService;
 import com.robin.nass.service.StuStudentService;
@@ -42,7 +41,8 @@ public class AccommodationController {
     public ApiResult getAccmAndStuByDomId(Long domId) {
         //根据寝室id获取所有该寝室学生
         LambdaQueryWrapper<StuAccommodation> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(StuAccommodation::getFdormitoryid,domId);
+        wrapper.eq(StuAccommodation::getFdormitoryid,domId)
+                .orderByAsc(StuAccommodation::getFbed);
         List<StuAccommodation> accomList = accommodationService.list(wrapper);
 
         //通过dto展现学生姓名，寝室名称：xx栋xx寝室
@@ -61,8 +61,8 @@ public class AccommodationController {
         return new ApiResult(ResponseStatus.SUCCESS,"查询成功！",accomDtoList);
     }
 
-    @PostMapping("/addStu")
-    public ApiResult addStuToAccm(StuAccommodation accommodation){
+    @PostMapping("/addStuToAccm")
+    public ApiResult addStuToAccm(@RequestBody StuAccommodation accommodation){
         Long fdormitoryId = accommodation.getFdormitoryid();
         //查看寝室容量
         StuDormitory dormitory = dormitoryService.getById(fdormitoryId);
@@ -123,5 +123,22 @@ public class AccommodationController {
         accomDto.setStuName(stuName);
 
         return new ApiResult(ResponseStatus.SUCCESS,"查找成功！",accomDto);
+    }
+
+    @GetMapping("/notHasDormStu")
+    public ApiResult getNotHasDormStu(){
+        return new ApiResult(ResponseStatus.SUCCESS,"查询成功！",accommodationService.getNotHasDormStu());
+    }
+
+    @PostMapping("/updateStu")
+    public ApiResult updateStu(@RequestBody StuAccommodation accommodation){
+        LambdaUpdateWrapper<StuAccommodation> wrapper = new LambdaUpdateWrapper<>();
+        wrapper.eq(StuAccommodation::getFstudentid,accommodation.getFstudentid())
+                .set(StuAccommodation::getFbed,accommodation.getFbed())
+                .set(StuAccommodation::getFin,accommodation.getFin());
+
+        accommodationService.update(wrapper);
+
+        return new ApiResult(ResponseStatus.SUCCESS,"修改成功！",null);
     }
 }

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 
@@ -64,7 +65,7 @@ public class StuAntiepidemicController {
                 queryWrapper.eq(StuAntiepidemic::getFstudentid,id);
                 StuAntiepidemic antiepidemic = antiepidemicService.getOne(queryWrapper);
                 return antiepidemic;
-            }).filter(s -> s!=null).collect(Collectors.toList());
+            }).filter(Objects::nonNull).collect(Collectors.toList());
         }
 
         antiepidemicService.page(stuAntINfo);

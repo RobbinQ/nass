@@ -10,7 +10,7 @@ import lombok.Data;
  * @Date 2022/11/24 17:23
  */
 @Data
-public class StuDTO extends StuStudent {
+public class StuDto extends StuStudent {
 
     private String classRoleName;
 

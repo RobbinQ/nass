@@ -6,9 +6,14 @@ import com.robin.nass.common.httpUtils.ApiResult;
 import com.robin.nass.common.httpUtils.ResponseStatus;
 import com.robin.nass.pojo.SysDept;
 import com.robin.nass.pojo.SysDeptTree;
+import com.robin.nass.pojo.SysUser;
 import com.robin.nass.service.SysDeptService;
+import com.robin.nass.service.SysUserService;
+import com.sun.org.apache.bcel.internal.generic.NEW;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @ClassName DeptController
@@ -22,6 +27,9 @@ import org.springframework.web.bind.annotation.*;
 public class DeptController {
     @Autowired
     SysDeptService sysDeptService;
+
+    @Autowired
+    SysUserService userService;
 
     @GetMapping("/getInfo")
     public ApiResult getDeptInfo(){
@@ -42,5 +50,19 @@ public class DeptController {
     public ApiResult deleteDeptById(@RequestParam Long id){
         sysDeptService.removeById(id);
         return new ApiResult(ResponseStatus.SUCCESS,"删除成功！",null);
+    }
+
+    @GetMapping("/getUserByDeptId")
+    public ApiResult getUserByDeptId(@RequestParam Long id){
+        List<SysUser> userList = userService.list(new LambdaQueryWrapper<SysUser>().eq(SysUser::getDeptId, id));
+        return new ApiResult(ResponseStatus.SUCCESS,"查找成功！",userList);
+    }
+
+    @GetMapping("/transferDept")
+    public ApiResult userTransferDept(@RequestParam Long dId,@RequestParam Long uId){
+        SysUser user = userService.getById(uId);
+        user.setDeptId(dId);
+        userService.updateById(user);
+        return new ApiResult(ResponseStatus.SUCCESS,"调动成功！",null);
     }
 }

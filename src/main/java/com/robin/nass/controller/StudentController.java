@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.robin.nass.common.httpUtils.ApiResult;
 import com.robin.nass.common.httpUtils.ResponseStatus;
-import com.robin.nass.pojo.dto.StuDTO;
+import com.robin.nass.pojo.dto.StuDto;
 import com.robin.nass.pojo.StuStudent;
 import com.robin.nass.pojo.dictionaries.DicClassrole;
 import com.robin.nass.pojo.dictionaries.DicNationality;
@@ -113,8 +113,8 @@ public class StudentController {
         //通过dto映射学生的民族、政治面貌、班级角色名称
         List<StuStudent> records = studentInfo.getRecords();
 
-        List<StuDTO> dtoList = records.stream().map((stu) -> {
-            StuDTO dto = new StuDTO();
+        List<StuDto> dtoList = records.stream().map((stu) -> {
+            StuDto dto = new StuDto();
             BeanUtils.copyProperties(stu, dto);
 
             DicPolitics politic = dicPoliticsService.getById(stu.getFpoliticsid());
@@ -129,17 +129,17 @@ public class StudentController {
             return dto;
         }).collect(Collectors.toList());
 
-        Page<StuDTO> stuDTOPage = new Page<>();
-        BeanUtils.copyProperties(studentInfo,stuDTOPage,"records");
-        stuDTOPage.setRecords(dtoList);
+        Page<StuDto> stuDtoPage = new Page<>();
+        BeanUtils.copyProperties(studentInfo,stuDtoPage,"records");
+        stuDtoPage.setRecords(dtoList);
 
-        return new ApiResult(ResponseStatus.SUCCESS,"查询成功！",stuDTOPage);
+        return new ApiResult(ResponseStatus.SUCCESS,"查询成功！",stuDtoPage);
     }
 
     @PostMapping("/editStu")
     public ApiResult editStudentById(@RequestBody StuStudent stuStudent){
-        stuStudentService.updateById(stuStudent);
-        return new ApiResult(ResponseStatus.SUCCESS,"修改成功！",null);
+        boolean update = stuStudentService.updateById(stuStudent);
+        return new ApiResult(ResponseStatus.SUCCESS,"修改成功！",update);
     }
 
     @DeleteMapping("/deleteStu")

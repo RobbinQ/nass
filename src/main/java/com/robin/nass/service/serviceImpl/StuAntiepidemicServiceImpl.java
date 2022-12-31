@@ -13,5 +13,6 @@ import org.springframework.stereotype.Service;
  * @Date 2022/11/25 11:07
  */
 @Service
-public class StuAntiepidemicServiceImpl extends ServiceImpl<StuAntiepidemicMapper, StuAntiepidemic> implements StuAntiepidemicService {
+public class StuAntiepidemicServiceImpl extends ServiceImpl<StuAntiepidemicMapper, StuAntiepidemic>
+        implements StuAntiepidemicService {
 }

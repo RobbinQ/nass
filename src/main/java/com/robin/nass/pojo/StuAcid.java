@@ -17,10 +17,10 @@ public class StuAcid {
 
     private Long fstudentid;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss",timezone="GMT+8")
     private Date fsampletime;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss",timezone="GMT+8")
     private Date ftesttime;
 
     private String ftestunit;

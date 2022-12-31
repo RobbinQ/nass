@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.robin.nass.mapper.StuAcidMapper">
+    <select id="getNotAcidStu" resultType="com.robin.nass.pojo.StuStudent">
+        SELECT
+            stu.id,
+            stu.fname
+        FROM
+            nass.stu_student stu
+        WHERE
+                id NOT IN (
+                SELECT
+                    fstudentId
+                FROM
+                    nass.stu_acid acid)
+    </select>
+</mapper>

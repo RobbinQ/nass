@@ -24,7 +24,8 @@ import java.util.ArrayList;
  * @Date 2022/11/22 16:00
  */
 @Service
-public class StuStudentServiceImpl extends ServiceImpl<StuStudentMapper, StuStudent> implements StuStudentService {
+public class StuStudentServiceImpl extends ServiceImpl<StuStudentMapper, StuStudent>
+        implements StuStudentService {
 
     @Override
     public Long importStu(MultipartFile file) {

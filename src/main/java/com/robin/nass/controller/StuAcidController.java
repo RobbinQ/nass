@@ -11,15 +11,12 @@ import com.robin.nass.pojo.dto.AcidDto;
 import com.robin.nass.service.StuAcidService;
 import com.robin.nass.service.StuStudentService;
 import com.robin.nass.service.dicService.DicHealthgradeService;
-import com.robin.nass.service.dicService.DicHealthstatusService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -95,4 +92,48 @@ public class StuAcidController {
 
         return new ApiResult(ResponseStatus.SUCCESS,"查询成功！",acidDtoPage);
     }
+
+    @GetMapping("/allAcc")
+    public ApiResult getAllAcc(){
+        List<StuAcid> list = stuAcidService.list();
+        int negative = 0;
+        int positive = 0;
+        int asymptomatic = 0;
+        for (StuAcid stuAcid : list) {
+            Long fresult = stuAcid.getFresult();
+            if (fresult == 1){
+                negative++;
+            }else if (fresult == 2){
+                asymptomatic++;
+            }else {
+                positive++;
+            }
+        }
+        HashMap<String, Integer> map = new HashMap<>();
+        map.put("negative",negative);
+        map.put("positive",positive);
+        map.put("asymptomatic",asymptomatic);
+
+        return new ApiResult(ResponseStatus.SUCCESS,"查找成功!",map);
+    }
+
+    @DeleteMapping("/deleteAcid")
+    public ApiResult deleteAcidById(@RequestParam Long id){
+        return new ApiResult(ResponseStatus.SUCCESS,"删除成功！",stuAcidService.removeById(id));
+    }
+
+    @GetMapping("/getNotHasAcid")
+    public ApiResult getNotHasAcid(){
+        return new ApiResult(ResponseStatus.SUCCESS,"查询成功！",stuAcidService.getNotAcidStu());
+    }
+
+    @PostMapping("/updateById")
+    public ApiResult updateAcidById(@RequestBody StuAcid acid){
+        if (acid.getId()==null){
+            return new ApiResult(ResponseStatus.SUCCESS,"添加成功！",stuAcidService.save(acid));
+        }else {
+            return new ApiResult(ResponseStatus.SUCCESS,"修改成功！",stuAcidService.updateById(acid));
+        }
+    }
+
 }

@@ -2,7 +2,10 @@ package com.robin.nass.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.robin.nass.pojo.StuAcid;
+import com.robin.nass.pojo.StuStudent;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * @ClassName StuAcidMapper
@@ -12,4 +15,5 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface StuAcidMapper extends BaseMapper<StuAcid> {
+    List<StuStudent> getNotAcidStu();
 }
