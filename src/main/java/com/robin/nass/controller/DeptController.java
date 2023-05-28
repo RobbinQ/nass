@@ -40,9 +40,9 @@ public class DeptController {
     public ApiResult getDeptTree(){
         return new ApiResult(ResponseStatus.SUCCESS,"查询成功！",sysDeptService.getDeptTree());
     }
-    @GetMapping("/editDept")
-    public ApiResult editDeptById(@RequestParam(value = "id") Long id,@RequestParam String name){
-        sysDeptService.update(new LambdaUpdateWrapper<SysDept>().eq(SysDept::getId,id).set(SysDept::getName,name));
+    @PostMapping("/editDept")
+    public ApiResult editDeptById(@RequestBody SysDept dept){
+        sysDeptService.update(new LambdaUpdateWrapper<SysDept>().eq(SysDept::getId,dept.getId()).set(SysDept::getName,dept.getName()));
         return new ApiResult(ResponseStatus.SUCCESS,"修改成功！",null);
     }
 
