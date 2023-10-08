@@ -11,6 +11,8 @@ import com.robin.nass.pojo.dto.AccomDto;
 import com.robin.nass.service.StuAccommodationService;
 import com.robin.nass.service.StuDormitoryService;
 import com.robin.nass.service.StuStudentService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +29,7 @@ import java.util.stream.Collectors;
 @RestController
 @CrossOrigin
 @RequestMapping("/acc")
+@Api(tags = "寝室相关接口")
 public class AccommodationController {
     @Autowired
     StuAccommodationService accommodationService;
@@ -37,6 +40,7 @@ public class AccommodationController {
     @Autowired
     StuStudentService studentService;
 
+    @ApiOperation("根据寝室id获取所有该寝室学生")
     @GetMapping("/getAccByDomid")
     public ApiResult getAccmAndStuByDomId(Long domId) {
         //根据寝室id获取所有该寝室学生
@@ -61,6 +65,7 @@ public class AccommodationController {
         return new ApiResult(ResponseStatus.SUCCESS,"查询成功！",accomDtoList);
     }
 
+    @ApiOperation("向寝室添加学生")
     @PostMapping("/addStuToAccm")
     public ApiResult addStuToAccm(@RequestBody StuAccommodation accommodation){
         Long fdormitoryId = accommodation.getFdormitoryid();
@@ -80,11 +85,13 @@ public class AccommodationController {
         return new ApiResult(ResponseStatus.SUCCESS,"添加成功！",null);
     }
 
+    @ApiOperation("部门树")
     @GetMapping("/dormTree")
     public ApiResult getDormTree(){
         return new ApiResult(ResponseStatus.SUCCESS,"查找成功！",dormitoryService.getDormitoryTree());
     }
 
+    @ApiOperation("将学生移出寝室")
     @GetMapping("/removeStu")
     public ApiResult removeStuByStuId(Long id){
         LambdaQueryWrapper<StuAccommodation> wrapper = new LambdaQueryWrapper<>();
